@@ -10,7 +10,7 @@ import Foundation
 
 enum AppAction {
     
-    case register(username: String, password: String)
+    case register(username: String, password: String, verifyPassword: String)
     case login(username: String, password: String)
     
     case accountBehaviorDone(result: Result<User?, AppError>)

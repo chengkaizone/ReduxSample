@@ -14,7 +14,9 @@ enum AppError: Error, Identifiable {
     }
     
     case passwordWrong
+    case registerSuccessful
     case registerFailed
+    case registerPasswordVertifyFailed
     case networkingFailed(Error)
 }
 
@@ -24,8 +26,12 @@ extension AppError: LocalizedError {
         switch self {
         case .passwordWrong:
             return "密码错误"
+        case .registerSuccessful:
+            return "注册成功，请重新登录"
         case .registerFailed:
             return "注册失败"
+        case .registerPasswordVertifyFailed:
+            return "密码不一致"
         case .networkingFailed(let error):
             return error.localizedDescription
         }

@@ -23,7 +23,19 @@ struct LoginView: View {
             accountSection
         }
         .alert(item: settingsBinding.loginError) { error in
-            Alert(title: Text(error.localizedDescription))
+            
+            switch error {
+            case .registerSuccessful:
+                return Alert(title: Text(error.localizedDescription), dismissButton: .default(Text("点击登录")) {
+                    
+                    self.settings.checker.password = ""
+                    self.settings.checker.verifyPassword = ""
+                    self.settings.checker.accountBehavior = .login
+                })
+            default:
+                return Alert(title: Text(error.localizedDescription))
+            }
+            
         }
     }
 
@@ -57,7 +69,8 @@ struct LoginView: View {
                             self.store.dispatch(
                                 .register(
                                     username: self.settings.checker.email,
-                                    password: self.settings.checker.password
+                                    password: self.settings.checker.password,
+                                    verifyPassword: self.settings.checker.verifyPassword
                                 )
                             )
                         }

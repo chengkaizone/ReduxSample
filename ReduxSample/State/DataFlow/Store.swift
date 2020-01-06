@@ -6,6 +6,7 @@
 //  Copyright © 2020 tony. All rights reserved.
 //
 
+import Foundation
 import Combine
 
 class Store: ObservableObject {
@@ -39,8 +40,12 @@ class Store: ObservableObject {
         var appState = state
         var command: AppCommand?
         switch action {
-        case .register(let username, let password):
+        case .register(let username, let password, let verifyPassword):
             if appState.settings.accountRequesting {
+                break
+            }
+            if password != verifyPassword {
+                appState.settings.loginError = .registerPasswordVertifyFailed
                 break
             }
             appState.settings.accountRequesting = true
@@ -56,12 +61,17 @@ class Store: ObservableObject {
             switch result {
             case .success(let user):
                 appState.settings.loginUser = user
+                if user == nil {
+                    appState.settings.loginError = .registerSuccessful
+                }
             case .failure(let error):
                 appState.settings.loginError = error
             }
         case .logout:
+            appState.settings.checker.password = ""
             appState.settings.loginUser = nil
         case .emailValid(let valid):
+            
             appState.settings.isEmailValid = valid
         }
         return (appState, command)
