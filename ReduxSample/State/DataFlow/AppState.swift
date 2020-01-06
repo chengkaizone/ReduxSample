@@ -48,6 +48,7 @@ extension AppState {
                 
                 let emailLocalValid = $email.map { $0.isValidEmailAddress }
                 let canSkipRemoteVerify = $accountBehavior.map { $0 == .login }
+                
                 let publisher = Publishers.CombineLatest3(emailLocalValid, canSkipRemoteVerify, remoteVerify)
                     .map { $0 && ($1 || $2) }
                 .eraseToAnyPublisher()

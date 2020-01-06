@@ -15,7 +15,7 @@ struct EmailCheckingRequest {
     var publisher: AnyPublisher<Bool, Never> {
         Future<Bool, Never> { promise in
             DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
-                if self.email.lowercased() == "example@email.com" {
+                if self.email.lowercased() == "tony@email.com" {// 代表注册过
                     promise(.success(false))
                 } else {
                     promise(.success(true))
