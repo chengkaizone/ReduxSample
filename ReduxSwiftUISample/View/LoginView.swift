@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  ReduxSample
+//  ReduxSwiftUISample
 //
 //  Created by tony on 2020/1/3.
 //  Copyright © 2020 tony. All rights reserved.
